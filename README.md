@@ -1,21 +1,23 @@
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
+import os
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-# 🔴 YAHAN APNA BOTFATHER TOKEN PASTE KARO
-TOKEN = 8534348602:AAF2V-Q3fjQergpWmfOqzgvP4uLWBkFOFNI
+# Railway se token lega
+TOKEN = os.getenv("BOT_TOKEN")
 
-async def start(update, context):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Assalam o Alaikum 👋\n\n"
         "🤖 Crypto Ustad Bot\n"
         "📊 Free crypto signals & market updates\n\n"
         "Commands:\n"
-        "btc  → BTC update\n"
-        "eth  → ETH update\n"
+        "btc → BTC update\n"
+        "eth → ETH update\n"
         "signal → Aaj ka signal\n\n"
         "⚠️ Not financial advice"
     )
 
-async def handle_message(update, context):
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
     if text == "btc":
@@ -44,9 +46,7 @@ async def handle_message(update, context):
         )
 
     else:
-        await update.message.reply_text(
-            "BTC / ETH / SIGNAL likho"
-        )
+        await update.message.reply_text("BTC / ETH / SIGNAL likho")
 
 def main():
     app = Application.builder().token(TOKEN).build()
